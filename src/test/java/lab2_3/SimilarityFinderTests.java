@@ -41,5 +41,14 @@ SimilarityFinder finder = new SimilarityFinder(new MockSequenceSearcher());
 		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);
 		assertThat(EXPECTED, is(0.25d));
 	}
+	
+	@Test
+	public void CalculateJackardSimilarityWithoutCommonElements() {
+		
+		int[] seqA = { 1, 2 };
+		int[] seqB = { 3, 4, 5 };
+		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);		
+		assertThat(EXPECTED, is(0d));
+	}
 
 }
