@@ -1,10 +1,8 @@
 package lab2_3;
 
 import static org.junit.Assert.*;
-
 import static org.hamcrest.CoreMatchers.*;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.iis.mto.similarity.MockSequenceSearcher;
@@ -12,8 +10,7 @@ import edu.iis.mto.similarity.SimilarityFinder;
 
 public class SimilarityFinderTests {
 
-
-SimilarityFinder finder = new SimilarityFinder(new MockSequenceSearcher());
+	SimilarityFinder finder = new SimilarityFinder(new MockSequenceSearcher());
 	
 	@Test
 	public void CalculateJackardSimilarityOneSequenceIsEmpty() {
@@ -34,10 +31,19 @@ SimilarityFinder finder = new SimilarityFinder(new MockSequenceSearcher());
 	}
 	
 	@Test
-	public void CalculateJackardSimilarityWithOneCommonElement() {
+	public void CalculateJackardSimilarityWithOneCommonElementAndDifferentLength() {
 		
-		int[] seqA = { 1, 2 };
+		int[] seqA = {1, 2};
 		int[] seqB = {1, 3, 4};		
+		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);
+		assertThat(EXPECTED, is(0.25d));
+	}
+	
+	@Test
+	public void CalculateJackardSimilarityWithOneCommonElementAndTheSameLength() {
+		
+		int[] seqA = {1, 2, 5, 8};
+		int[] seqB = {1, 3, 4, 6};		
 		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);
 		assertThat(EXPECTED, is(0.25d));
 	}
@@ -45,10 +51,18 @@ SimilarityFinder finder = new SimilarityFinder(new MockSequenceSearcher());
 	@Test
 	public void CalculateJackardSimilarityWithoutCommonElements() {
 		
-		int[] seqA = { 1, 2 };
-		int[] seqB = { 3, 4, 5 };
+		int[] seqA = {1, 2 };
+		int[] seqB = {3, 4, 5};
 		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);		
 		assertThat(EXPECTED, is(0d));
 	}
 
+	@Test
+	public void CalculateJackardSimilarityWhenBothSequencesAreTheSame() {
+		
+		int[] seqA = {1, 2};
+		int[] seqB = {1, 2};
+		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);		
+		assertThat(EXPECTED, is(1.0d));
+	}
 }
