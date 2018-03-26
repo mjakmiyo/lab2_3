@@ -21,5 +21,4 @@ public class SearchResultStub implements SearchResult{
     public int getPosition() {
         return position;
     }
-
 }
