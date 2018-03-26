@@ -39,21 +39,21 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void calculateJackardSimilarityForSameSequences() {
+    public void calculateJackardSimilarityForSameSequencesTest() {
         int[] seq1 = new int[]{0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2};
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(1.0));
     }
 
     @Test
-    public void calculateJackardSimilarityForDifferentSequences() {
+    public void calculateJackardSimilarityForDifferentSequencesTest() {
         int[] seq1 = new int[]{5, 6, 0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2, 11};
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0.5));
     }
 
     @Test
-    public void calculateJackardUsesSearchMethod() {
+    public void calculateJackardUsesSearchMethodTest() {
         int[] seq1 = new int[]{5, 6, 0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2, 11};
         assertThat(sequenceSearcherStub.getSearchInvokeCounter(), is(5));
