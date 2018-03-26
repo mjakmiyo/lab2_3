@@ -4,9 +4,6 @@ import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherStub implements SequenceSearcher{
     public SearchResultStub search(int key, int[] seq) {
-        if(seq.length == 0){
-            throw new IllegalArgumentException();
-        }
         int start = 0;
         int end = seq.length - 1;
         int center;
@@ -16,6 +13,7 @@ public class SequenceSearcherStub implements SequenceSearcher{
             center = (start + end) / 2;
             if (seq[center] == key) {
                 result.setPosition(center);
+                result.setFound(true);
                 break;
             } else {
                 if (seq[center] < key)
