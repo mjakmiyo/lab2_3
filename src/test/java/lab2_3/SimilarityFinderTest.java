@@ -2,20 +2,23 @@ package lab2_3;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-
+import static org.mockito.Mockito.when;
+import static org.mockito.MockitoAnnotations.initMocks;
 import org.hamcrest.Matchers;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.SimilarityFinder;
+
 public class SimilarityFinderTest {
 	private static SimilarityFinder similarityFinder;
 	private static SequenceSearcher searcher;
 	private static SearchResult searchResult;
 	@BeforeClass
-	public void init() {
+	public static void init() {
 		searchResult = mock(SearchResult.class);
 		searcher = new SequenceSearcher() {
 			
@@ -29,7 +32,12 @@ public class SimilarityFinderTest {
 		};
 		similarityFinder=new SimilarityFinder(searcher);
 	}
-
+	@Before
+	public void initMockMethod() {
+		initMocks(this);
+		when(searchResult.isFound()).thenReturn(true);
+	}
+	
 	@Test
 	public void CalculateJackardSimilarityForEmptySequencesTest() {
 		int[] seq1= {};
@@ -37,13 +45,11 @@ public class SimilarityFinderTest {
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
 	}
 	@Test
-	public void test() {
-		
-		SequenceSearcher searcher=new SequenceSearcher() {
-			
-		};
-		
-		
-	}
+	public void CalculateJackardSimilarityForOneEmptySequenceTest () {
+		int[] seq1= {};
+		int[] seq2= {1,2};
+		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(0d));
+	};
+	
 	
 }
