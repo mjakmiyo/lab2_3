@@ -67,4 +67,12 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
     }
     
+    @Test
+    public void testingTwoSequencesWithTheSameNumbersShouldReturnOne() {
+        int seq1[] = {14, 2, 7, 1};
+        int seq2[] = {7, 2, 1, 14};
+        double expectedResult = 1;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
+    }
+    
 }
