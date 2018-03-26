@@ -51,4 +51,11 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
     }
     
+    @Test
+    public void testingTwoNonEmptySequencesShouldReturnCorrectValue() {
+        int seq1[] = {1, 8};
+        int seq2[] = {3, 4, 1};
+        double expectedResult = 0.25;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
+    }
 }
