@@ -17,57 +17,69 @@ public class SimilarityFinderTest {
 	private static SimilarityFinder similarityFinder;
 	private static SequenceSearcher searcher;
 	private static SearchResult searchResult;
+
 	@BeforeClass
 	public static void init() {
 		searchResult = mock(SearchResult.class);
 		searcher = new SequenceSearcher() {
-			
+
 			public SearchResult search(int key, int[] seq) {
-				for (int i: seq) {
-					if(i==key) 
+				for (int i : seq) {
+					if (i == key)
 						return searchResult;
 				}
 				return mock(SearchResult.class);
 			}
 		};
-		similarityFinder=new SimilarityFinder(searcher);
+		similarityFinder = new SimilarityFinder(searcher);
 	}
+
 	@Before
 	public void initMockMethod() {
 		initMocks(this);
 		when(searchResult.isFound()).thenReturn(true);
 	}
-	
+
 	@Test
 	public void CalculateJackardSimilarityForEmptySequencesTest() {
-		int[] seq1= {};
-		int[] seq2= {};
+		int[] seq1 = {};
+		int[] seq2 = {};
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
 	}
+
 	@Test
-	public void CalculateJackardSimilarityForOneEmptySequenceTest () {
-		int[] seq1= {};
-		int[] seq2= {1,2};
+	public void CalculateJackardSimilarityForOneEmptySequenceTest() {
+		int[] seq1 = {};
+		int[] seq2 = { 1, 2 };
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(0d));
 	};
+
 	@Test
 	public void CalculateJackardSimilarityForTheSameSequencesTest() {
-		int[] seq1= {1,2,3};
-		int[] seq2= {1,2,3};
+		int[] seq1 = { 1, 2, 3 };
+		int[] seq2 = { 1, 2, 3 };
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
 	}
+
 	@Test
 	public void CaluculateJackardSimilarityForTwoDistinctSequencesTest() {
-		int[] seq1= {1,2,3,4};
-		int[] seq2= {5,6,7,8,9};
+		int[] seq1 = { 1, 2, 3, 4 };
+		int[] seq2 = { 5, 6, 7, 8, 9 };
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(0d));
 	}
+
 	@Test
 	public void CalculateJackardSimilarityForCommonElementsInSequencesTest() {
-		int[] seq1= {1,2,3,4};
-		int[] seq2= {3,4,5,6};
-		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(2/6d));
+		int[] seq1 = { 1, 2, 3, 4 };
+		int[] seq2 = { 3, 4, 5, 6 };
+		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(2 / 6d));
 	}
-	
-	
+
+	@Test
+	public void CalculateJackardSimilarityForDistinctLengthWithCommonElementsSequencesTest() {
+		int[] seq1 = { 1, 2, 3, 4 };
+		int[] seq2 = { 1, 2, 3, 5, 6, 9, 15 };
+		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(3 / 8d));
+	}
+
 }
