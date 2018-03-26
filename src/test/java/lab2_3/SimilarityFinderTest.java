@@ -7,10 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.SimilarityFinder;
-import org.mockito.Mock;
 public class SimilarityFinderTest {
 	private static SimilarityFinder similarityFinder;
-	@Mock
 	private static SequenceSearcher searcher;
 	@BeforeClass
 	public static void init() {
