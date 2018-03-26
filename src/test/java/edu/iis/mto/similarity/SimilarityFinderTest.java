@@ -30,5 +30,11 @@ public class SimilarityFinderTest {
         int[] seq2 = new int[0];
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0.0));
     }
-
+    @Test
+    public void calculateJackardSimilarityForSameSequences(){
+        SimilarityFinder similarityFinder = new SimilarityFinder(new SequenceSearcherStub());
+        int[] seq1 = new int[]{0, 1, 2};
+        int[] seq2 = new int[]{0, 1, 2};
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(1.0));
+    }
 }
