@@ -16,22 +16,23 @@ import edu.iis.mto.similarity.SimilarityFinder;
 
 public class SimilarityFinderTest {
 
+    private SearchResult trueSearchResult = Mockito.mock(SearchResult.class);
+    private SearchResult falseSearchResult = Mockito.mock(SearchResult.class);
     private SequenceSearcher sequenceSearcher = new SequenceSearcher() {
         public SearchResult search(int i, int[] seq) {
             for (int k=0; k<seq.length; k++) {
                 if (seq[k] == i) {
-                    return searchResult;
+                    return trueSearchResult;
                 }
             }
-            return Mockito.mock(SearchResult.class);
+            return falseSearchResult;
         }
     };
     private SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
-    private SearchResult searchResult = Mockito.mock(SearchResult.class);
     
     @Before
-    public void setUpMockMethods() {
-        when(searchResult.isFound()).thenReturn(true);
+    public void setUp() {
+        when(trueSearchResult.isFound()).thenReturn(true);
     }
     
     @Test
@@ -39,6 +40,14 @@ public class SimilarityFinderTest {
         int seq1[] = {};
         int seq2[] = {};
         double expectedResult = 1.0;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
+    }
+    
+    @Test
+    public void testingOneEmptySequenceShouldReturnZero() {
+        int seq1[] = {1, 2};
+        int seq2[] = {};
+        double expectedResult = 0;
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
     }
     
