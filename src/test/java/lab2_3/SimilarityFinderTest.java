@@ -5,10 +5,8 @@ import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.when;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 
 import edu.iis.mto.search.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
