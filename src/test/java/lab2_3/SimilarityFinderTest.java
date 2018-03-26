@@ -19,7 +19,7 @@ public class SimilarityFinderTest {
     private SequenceSearcher sequenceSearcher = new SequenceSearcher() {
         public SearchResult search(int i, int[] seq) {
             for (int k=0; k<seq.length; k++) {
-                if (k == i) {
+                if (seq[k] == i) {
                     return searchResult;
                 }
             }
@@ -32,6 +32,14 @@ public class SimilarityFinderTest {
     @Before
     public void setUpMockMethods() {
         when(searchResult.isFound()).thenReturn(true);
+    }
+    
+    @Test
+    public void testingTwoEmptySequencesShouldReturnOne() {
+        int seq1[] = {};
+        int seq2[] = {};
+        double expectedResult = 1.0;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
     }
     
 }
