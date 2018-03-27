@@ -11,7 +11,7 @@ public class SimilarityFinderTest {
 
     @Before
     public void setUp() {
-        similarityFinder = new SimilarityFinder( new MySequenceSearcher() );
+        similarityFinder = new SimilarityFinder( new SequenceSearcherStub() );
     }
 
     @Test
@@ -63,7 +63,7 @@ public class SimilarityFinderTest {
     }
 
     @Test
-    public void oneSequenceInSecondSequenceTest() throws Exception {
+    public void firstSequenceInSecondSequenceTest() throws Exception {
         int[] seq1 = {1, 2, 3, 4};
         int[] seq2 = {1, 2, 3, 4, 5, 6, 7, 8};
         double intersection = 4;
