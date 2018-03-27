@@ -1,16 +1,9 @@
 package lab2_3;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.initMocks;
 import org.hamcrest.Matchers;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.iis.mto.search.SearchResult;
-import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.*;
 import edu.iis.mto.similarity.dubler.*;
 
