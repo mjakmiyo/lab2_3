@@ -23,7 +23,7 @@ public class SimilarityFinderTest {
 		searchResult = mock(SearchResult.class);
 		searcher = new SequenceSearcher() {
 
-			public SearchResult search(int key, int[] seq) {
+			public SearchResult search(int key,int[] seq) {
 				for (int i : seq) {
 					if (i == key)
 						return searchResult;
