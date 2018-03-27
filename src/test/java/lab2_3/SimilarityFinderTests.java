@@ -49,9 +49,18 @@ public class SimilarityFinderTests {
 	}
 	
 	@Test
-	public void CalculateJackardSimilarityWithoutCommonElements() {
+	public void CalculateJackardSimilarityWithoutCommonElementsAndDifferentLength() {
 		
 		int[] seqA = {1, 2 };
+		int[] seqB = {3, 4, 5};
+		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);		
+		assertThat(EXPECTED, is(0d));
+	}
+	
+	@Test
+	public void CalculateJackardSimilarityWithoutCommonElementsAndSameLength() {
+		
+		int[] seqA = {1, 2, 8 };
 		int[] seqB = {3, 4, 5};
 		final double EXPECTED = finder.calculateJackardSimilarity(seqA, seqB);		
 		assertThat(EXPECTED, is(0d));
