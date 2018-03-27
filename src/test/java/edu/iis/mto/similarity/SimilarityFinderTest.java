@@ -37,6 +37,12 @@ public class SimilarityFinderTest {
         assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection ) );
     }
 
-
+    @Test
+    public void notEmptySequencesWithoutIntersectionTest() throws Exception {
+        int[] seq1 = {3, 4, 5};
+        int[] seq2 = {6, 7, 8};
+        double intersection = 0;
+        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection ) );
+    }
 
 }
