@@ -51,7 +51,23 @@ public class SimilarityFinderTest {
         int[] seq1 = {3, 4, 5, 6};
         int[] seq2 = {6, 7, 8};
         double intersection = 1;
-        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection/(seq1.length+seq2.length- intersection) ) );
+        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection / (seq1.length + seq2.length - intersection) ) );
+    }
+
+    @Test
+    public void notEmptySequencesWithManyIntersectionTest() throws Exception {
+        int[] seq1 = {3, 4, 5, 6};
+        int[] seq2 = {4, 5, 6, 7, 8};
+        double intersection = 3;
+        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection / (seq1.length + seq2.length - intersection) ) );
+    }
+
+    @Test
+    public void oneSequenceInSecondSequenceTest() throws Exception {
+        int[] seq1 = {1, 2, 3, 4};
+        int[] seq2 = {1, 2, 3, 4, 5, 6, 7, 8};
+        double intersection = 4;
+        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection / (seq1.length + seq2.length - intersection) ) );
     }
 
 }
