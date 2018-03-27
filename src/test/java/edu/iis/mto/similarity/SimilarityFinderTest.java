@@ -21,6 +21,7 @@ public class SimilarityFinderTest {
         double intersection = 1;
         assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection ) );
     }
+
     @Test
     public void firstEmptySequenceTest() throws Exception {
         int[] seq1 = {};
@@ -43,6 +44,14 @@ public class SimilarityFinderTest {
         int[] seq2 = {6, 7, 8};
         double intersection = 0;
         assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection ) );
+    }
+
+    @Test
+    public void notEmptySequencesWithOneIntersectionTest() throws Exception {
+        int[] seq1 = {3, 4, 5, 6};
+        int[] seq2 = {6, 7, 8};
+        double intersection = 1;
+        assertThat( similarityFinder.calculateJackardSimilarity( seq1, seq2 ), is( intersection/(seq1.length+seq2.length- intersection) ) );
     }
 
 }
