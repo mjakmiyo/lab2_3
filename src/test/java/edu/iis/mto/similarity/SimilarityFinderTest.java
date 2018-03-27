@@ -35,6 +35,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityReturns0WhenSecondSequenceIsEmptyTest() {
         int[] seq1 = new int[]{0, 1, 2};
         int[] seq2 = new int[0];
+        sequenceSearcherStub.setFoundBooleanArray(new boolean[]{false, false, false});
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0.0));
     }
 
@@ -42,6 +43,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityForSameSequencesTest() {
         int[] seq1 = new int[]{0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2};
+        sequenceSearcherStub.setFoundBooleanArray(new boolean[]{true, true, true});
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(1.0));
     }
 
@@ -49,6 +51,7 @@ public class SimilarityFinderTest {
     public void calculateJackardSimilarityForDifferentSequencesTest() {
         int[] seq1 = new int[]{5, 6, 0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2, 11};
+        sequenceSearcherStub.setFoundBooleanArray(new boolean[]{false, false, true, true, true});
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0.5));
     }
 
@@ -56,6 +59,8 @@ public class SimilarityFinderTest {
     public void calculateJackardUsesSearchMethodTest() {
         int[] seq1 = new int[]{5, 6, 0, 1, 2};
         int[] seq2 = new int[]{0, 1, 2, 11};
+        sequenceSearcherStub.setFoundBooleanArray(new boolean[]{false, false, true, true, true});
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(sequenceSearcherStub.getSearchInvokeCounter(), is(5));
         assertThat(sequenceSearcherStub.getKeyArgArray(), is(seq1));
         assertThat(sequenceSearcherStub.getSeqArgArray(), is(seq2));

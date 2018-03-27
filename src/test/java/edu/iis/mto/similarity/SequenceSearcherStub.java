@@ -9,6 +9,10 @@ public class SequenceSearcherStub implements SequenceSearcher{
     ArrayList<Integer> keyArgArray = new ArrayList<Integer>();
     int[] seqArgArray;
 
+    boolean[] foundBooleanArray;
+
+    SearchResultStub result = new SearchResultStub();
+
     public int getSearchInvokeCounter() {
         return searchInvokeCounter;
     }
@@ -25,31 +29,24 @@ public class SequenceSearcherStub implements SequenceSearcher{
         return seqArgArray;
     }
 
+    public SearchResultStub getResult() {
+        return result;
+    }
+
+
+    public void setFoundBooleanArray(boolean[] foundBooleanArray) {
+        this.foundBooleanArray = foundBooleanArray;
+    }
+
     public SearchResultStub search(int key, int[] seq) {
         // for mocking purposes
         keyArgArray.add(key);
+
+        result.setFound(foundBooleanArray[searchInvokeCounter]);
+
         searchInvokeCounter++;
         this.seqArgArray = seq;
 
-        int start = 0;
-        int end = seq.length - 1;
-        int center;
-        SearchResultStub result = new SearchResultStub();
-
-        while (start <= end) {
-            center = (start + end) / 2;
-            if (seq[center] == key) {
-                result.setPosition(center);
-                result.setFound(true);
-                break;
-            } else {
-                if (seq[center] < key)
-                    start = center + 1;
-                else
-                    end = center - 1;
-            }
-
-        }
         return result;
     }
 }
