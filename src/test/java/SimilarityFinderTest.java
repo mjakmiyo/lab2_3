@@ -33,4 +33,24 @@ public class SimilarityFinderTest {
         double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
         assertThat(result, is(3.0/9.0));
     }
+    @Test
+    public void calculateJackardSimilarityShouldReturnOneWhenSameSequences(){
+        boolean[] expectedResults = {true, true, true, true};
+        int[] seq1 = {1,2,3,4};
+        int[] seq2 = {1,2,3,4};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults);
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(result, is(1.0));
+    }
+    @Test
+    public void calculateJackardSimilarityShouldReturnZeroWhenCompletelyDifferentSequences(){
+        boolean[] expectedResults = {false, false, false, false};
+        int[] seq1 = {1,2};
+        int[] seq2 = {3,4};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults);
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(result, is(0.0));
+    }
 }
