@@ -19,5 +19,15 @@ public class SimilarityFinderTest {
         final double EXPECTED_VALUE = 1.0;
         Assert.assertThat(finder.calculateJackardSimilarity(seq1, seq2), is(EXPECTED_VALUE));
     }
+    @Test
+    public void returnValueZeroWhenOneSequenceIsEmptyAndAnotherIsSomething() {
+        int[] seq1 = new int[1];
+        seq1[0]=1;
+        int[] seq2 = new int[0];
+        final double EXPECTED_VALUE = 0.0;
+
+        Assert.assertThat(finder.calculateJackardSimilarity(seq1, seq2), is(EXPECTED_VALUE));
+        Assert.assertThat(finder.calculateJackardSimilarity(seq2, seq1), is(EXPECTED_VALUE));
+    }
 }
 
