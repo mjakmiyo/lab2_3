@@ -33,6 +33,21 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1d));
     }
 
+    @Test
+    public void onlyFirstSequenceEmptyShouldReturn0() {
+        int[] sequence1 = {};
+        int[] sequence2 = {1, 2, 3};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(0d));
+    }
+
+    @Test
+    public void onlySecondSequenceEmptyShouldReturn0() {
+        int[] sequence1 = {4, 5, 6};
+        int[] sequence2 = {};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(0d));
+    }
 
     @Test
     public void twoDifferentSequencesShouldReturn0() {
@@ -56,5 +71,13 @@ public class SimilarityFinderTest {
         int[] sequence2 = {2, 4, 6, 8};
 
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(2 / 7d));
+    }
+
+    @Test
+    public void twoSequencesWithOneCompletelyOverlappingShouldReturnCorrectValue() {
+        int[] sequence1 = {1, 2, 3, 4, 5};
+        int[] sequence2 = {1, 2, 3};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(3 / 5d));
     }
 }
