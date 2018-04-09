@@ -9,11 +9,10 @@ import static org.junit.Assert.*;
 
 public class SimilarityFinderTest {
     private SimilarityFinder similarityFinder;
-    private SequenceSearcher sequenceSearcher;
 
     @Before
     public void setUp() {
-        sequenceSearcher = new SequenceSearcherStub();
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub();
         similarityFinder = new SimilarityFinder(sequenceSearcher);
     }
 
