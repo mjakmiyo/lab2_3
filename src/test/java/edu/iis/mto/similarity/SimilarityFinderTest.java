@@ -24,4 +24,13 @@ public class SimilarityFinderTest {
 
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1d));
     }
+
+    @Test
+    public void twoSameSequencesShouldReturn1() {
+        int[] sequence1 = {1, 2, 3};
+        int[] sequence2 = {1, 2, 3};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1d));
+    }
+
 }
