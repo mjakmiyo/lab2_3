@@ -33,4 +33,28 @@ public class SimilarityFinderTest {
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1d));
     }
 
+
+    @Test
+    public void twoDifferentSequencesShouldReturn0() {
+        int[] sequence1 = {1, 2, 3};
+        int[] sequence2 = {4, 5, 6};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(0d));
+    }
+
+    @Test
+    public void twoSequencesWithOneOverlapShouldReturnCorrectValue() {
+        int[] sequence1 = {7, 8, 9};
+        int[] sequence2 = {5, 6, 7};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1 / 5d));
+    }
+
+    @Test
+    public void twoSequencesWithManyOverlapsShouldReturnCorrectValue() {
+        int[] sequence1 = {1, 2, 3, 4, 5};
+        int[] sequence2 = {2, 4, 6, 8};
+
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(2 / 7d));
+    }
 }
