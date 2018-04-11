@@ -31,4 +31,45 @@ public class SimilarityFinderTest {
         double result = similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
         assertThat(result, is(1.0));
     }
+
+    @Test
+    public void calculateJackardSimilarityShouldReturnZeroForDifferentSequences() {
+        int[] sequence1 = {1, 2, 3, 4, 5, 6};
+        int[] sequence2 = {7, 8, 9, 10, 11, 12};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(
+                new boolean[] {false, false, false, false, false, false});
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(result, is(0.0));
+    }
+
+    @Test
+    public void calculateJackardSimilarityShouldReturnOneForTwoEmptySequences() {
+        int[] sequence1 = {};
+        int[] sequence2 = {};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(new boolean[] {});
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(result, is(1.0));
+    }
+
+    @Test
+    public void calculateJackardSimilarityShouldReturnZeroIfOnlyFirstSequenceIsEmpty() {
+        int[] sequence1 = {};
+        int[] sequence2 = {1};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(new boolean[] {false});
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(result, is(0.0));
+    }
+
+    @Test
+    public void calculateJackardSimilarityShouldReturnZeroIfOnlySecondSequenceIsEmpty() {
+        int[] sequence1 = {1};
+        int[] sequence2 = {};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(new boolean[] {false});
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
+        double result = similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(result, is(0.0));
+    }
 }
