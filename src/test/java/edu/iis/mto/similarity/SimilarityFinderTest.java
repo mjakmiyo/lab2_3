@@ -1,47 +1,33 @@
 package edu.iis.mto.similarity;
 
-import edu.iis.mto.search.SearchResult;
-import edu.iis.mto.search.SequenceSearcher;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.*;
 
 import java.util.Random;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
-import static org.powermock.api.mockito.PowerMockito.*;
 
 public class SimilarityFinderTest {
 
     private static SimilarityFinder similarityFinder;
-    private static SequenceSearcher sequenceSearcher;
-    private static SearchResult searchResult;
+    private static SequenceSearcherDummyClass sequenceSearcher;
+    private static SearchResultDummyClass searchResult;
 
     private static int[] seq1;
     private static int[] seq2;
-
+    private boolean[] answerArray = {};
 
     @BeforeClass
-    public static void setUp(){
-        searchResult = Mockito.mock(SearchResult.class);
-        sequenceSearcher = new SequenceSearcher() {
-            public SearchResult search(int i, int[] ints) {
-                for (int k : ints) {
-                    if(k == i) return searchResult;
-                }
-                return Mockito.mock(SearchResult.class);
-            }
-        };
-        similarityFinder = new SimilarityFinder(sequenceSearcher);
-
+    public static void setup() {
+        sequenceSearcher = new SequenceSearcherDummyClass();
+        searchResult = new SearchResultDummyClass();
     }
 
     @Before
-    public void setUpMockMethods() {
-        MockitoAnnotations.initMocks(this);
-        when(searchResult.isFound()).thenReturn(true);
+    public void setUpSimilarityFinderClass() {
+        similarityFinder = new SimilarityFinder(sequenceSearcher);
     }
 
     @Test
@@ -101,6 +87,11 @@ public class SimilarityFinderTest {
         }
         int smaller = length > length2 ? length2 : length;
         double larger = (double) length > length2 ? length : length2;
+        answerArray = new boolean[smaller];
+        for (int i = 0; i < smaller; i++) {
+            answerArray[i] = true;
+        }
+        sequenceSearcher.setAnswerArray(answerArray);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(smaller/larger));
     }
 
@@ -108,6 +99,8 @@ public class SimilarityFinderTest {
     public void checkWhenTwoSequencesDidNotHaveAnyCommonElements() {
         seq1 = new int[]{0, 1, 2, 3, 4};
         seq2 = new int[]{5, 6, 7};
+        answerArray = new boolean[seq1.length];
+        sequenceSearcher.setAnswerArray(answerArray);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(0d));
     }
 
@@ -115,6 +108,9 @@ public class SimilarityFinderTest {
     public void checkWhenTwoSequencesHaveSomeCommonElements() {
         seq1 = new int[]{0, 1, 2, 3, 4};
         seq2 = new int[]{3, 4, 5, 6, 7};
+        answerArray = new boolean[seq1.length];
+        answerArray[0] = answerArray[1] = true;
+        sequenceSearcher.setAnswerArray(answerArray);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is((double) 2/8));
     }
 }
