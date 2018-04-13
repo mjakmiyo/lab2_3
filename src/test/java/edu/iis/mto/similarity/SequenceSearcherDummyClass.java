@@ -10,9 +10,15 @@ public class SequenceSearcherDummyClass implements SequenceSearcher {
     public SearchResultDummyClass search(int var1, int[] var2)
     {
         SearchResultDummyClass dummyClass = new SearchResultDummyClass();
-        dummyClass.setFound(answerArray[position]);
-        position++;
-        return dummyClass;
+        if(var2.length == 0) {
+            dummyClass.setFound(false);
+            return dummyClass;
+        }
+        else {
+            dummyClass.setFound(answerArray[position]);
+            position++;
+            return dummyClass;
+        }
     }
 
     public boolean[] getAnswerArray() {

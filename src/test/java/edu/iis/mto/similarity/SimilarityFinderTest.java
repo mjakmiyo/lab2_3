@@ -67,6 +67,11 @@ public class SimilarityFinderTest {
         for (int i = length; i > 0; i--) {
             seq2[i - 1] = seq1[i - 1] = i;
         }
+        answerArray = new boolean[length];
+        for (int i = 0; i < length; i++) {
+            answerArray[i] = true;
+        }
+        sequenceSearcher.setAnswerArray(answerArray);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(1.0d));
     }
 
@@ -77,22 +82,22 @@ public class SimilarityFinderTest {
         while(length == length2) {
             length2 = new Random().nextInt(100) + 1;
         }
-        seq1 = new int[length];
-        seq2 = new int[length2];
-        for (int i = length; i > 0; i--) {
+        int smaller = length > length2 ? length2 : length;
+        int larger = length > length2 ? length : length2;
+        seq1 = new int[smaller];
+        seq2 = new int[larger];
+        for (int i = smaller; i > 0; i--) {
             seq1[i - 1] = i;
         }
-        for (int i = length2; i > 0; i--) {
+        for (int i = larger; i > 0; i--) {
             seq2[i - 1] = i;
         }
-        int smaller = length > length2 ? length2 : length;
-        double larger = (double) length > length2 ? length : length2;
         answerArray = new boolean[smaller];
         for (int i = 0; i < smaller; i++) {
             answerArray[i] = true;
         }
         sequenceSearcher.setAnswerArray(answerArray);
-        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(smaller/larger));
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(smaller/(double) larger));
     }
 
     @Test
