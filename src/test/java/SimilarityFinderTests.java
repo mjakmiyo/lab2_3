@@ -19,6 +19,18 @@ public class SimilarityFinderTests {
     }
 
     @Test
+    public void calculatingJackardSimilarityForTwoEmptySequencesShouldNotInvokeSearchMethod() {
+        boolean[] expectedResults = {};
+        int[] sequence1 = {};
+        int[] sequence2 = {};
+        SequenceSearcherStub sequenceSearcherStub = new SequenceSearcherStub(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
+
+        similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(sequenceSearcherStub.getInvokeCounter(), is(0));
+    }
+
+    @Test
     public void calculatingJackardSimilarityWhenFirstSequenceIsEmptyShouldReturnZero() {
         boolean[] expectedResults = {};
         int[] sequence1 = {};
@@ -66,5 +78,17 @@ public class SimilarityFinderTests {
         SequenceSearcher sequenceSearcherStub = new SequenceSearcherStub(expectedResults);
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(2.0 / 7.0));
+    }
+
+    @Test
+    public void calculatingJackardSimilarityForTwoDifferentSequencesShouldInvokeSearchMethodCorrectNumberOfTimes() {
+        boolean[] expectedResults = {false, true, true, false};
+        int[] sequence1 = {0, 5, 7, 9};
+        int[] sequence2 = {5, 7, 1, 517, 2};
+        SequenceSearcherStub sequenceSearcherStub = new SequenceSearcherStub(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
+
+        similarityFinder.calculateJackardSimilarity(sequence1, sequence2);
+        assertThat(sequenceSearcherStub.getInvokeCounter(), is(4));
     }
 }
