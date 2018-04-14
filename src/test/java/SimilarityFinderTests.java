@@ -17,4 +17,24 @@ public class SimilarityFinderTests {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
         assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(1.0));
     }
+
+    @Test
+    public void calculatingJackardSimilarityWhenFirstSequenceIsEmptyShouldReturnZero() {
+        boolean[] expectedResults = {};
+        int[] sequence1 = {};
+        int[] sequence2 = {4, 1, 6, 0};
+        SequenceSearcher sequenceSearcherStub = new SequenceSearcherStub(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(0.0));
+    }
+
+    @Test
+    public void calculatingJackardSimilarityWhenSecondSequenceIsEmptyShouldReturnZero() {
+        boolean[] expectedResults = {false, false, false, false};
+        int[] sequence1 = {1, 12, 3, -6};
+        int[] sequence2 = {};
+        SequenceSearcher sequenceSearcherStub = new SequenceSearcherStub(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcherStub);
+        assertThat(similarityFinder.calculateJackardSimilarity(sequence1, sequence2), is(0.0));
+    }
 }
