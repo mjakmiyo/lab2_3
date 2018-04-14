@@ -16,4 +16,8 @@ public class SequenceSearcherStub implements SequenceSearcher {
         invokeCounter++;
         return searchResult;
     }
+
+    public int getInvokeCounter() {
+        return invokeCounter;
+    }
 }
