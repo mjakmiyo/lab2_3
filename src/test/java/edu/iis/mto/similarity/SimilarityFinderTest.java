@@ -42,4 +42,26 @@ public class SimilarityFinderTest {
         double expectedResult = 0.25;
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
     }
+
+    @Test
+    public void testingTwoTheSameSequencesShouldReturnOne() {
+        boolean expectedResults[] = {true, true, true, true};
+        SequenceSearcher sequenceSearcher = new MockSimilarityFinder(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        int seq1[] = {2, 5, 9, 12};
+        int seq2[] = {2, 5, 9, 12};
+        double expectedResult = 1;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
+    }
+
+    @Test
+    public void testingTwoSequencesWithTheSameNumbersShouldReturnOne() {
+        boolean expectedResults[] = {true, true, true, true};
+        SequenceSearcher sequenceSearcher = new MockSimilarityFinder(expectedResults);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        int seq1[] = {34, 8, 5, 12};
+        int seq2[] = {5, 12, 34, 8};
+        double expectedResult = 1;
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), is(expectedResult));
+    }
 }
