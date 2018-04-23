@@ -5,14 +5,16 @@ import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherStub implements SequenceSearcher{
 
+    int elemIndex = 0;
+    boolean[] expectedResults;
+
+    public SequenceSearcherStub(boolean[] expectedResults) {
+        this.elemIndex = 0;
+        this.expectedResults = expectedResults;
+    }
 
     public SearchResult search(int i, int[] seq) {
-        for (int j = 0; j < seq.length; j++)
-            if (seq[j] == i)
-            {
-                return new SearchResultStub(true,j);
-            }
 
-        return new SearchResultStub( false,-1 );
+        return new SearchResultStub( expectedResults[elemIndex++] );
     }
 }

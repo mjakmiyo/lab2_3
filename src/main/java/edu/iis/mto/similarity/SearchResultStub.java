@@ -11,6 +11,10 @@ public class SearchResultStub implements SearchResult {
         this.position = position;
     }
 
+    public SearchResultStub(boolean isFound) {
+        this.isFound = isFound;
+    }
+
     public SearchResultStub() {
         this.isFound = false;
         this.position = -1;
