@@ -2,11 +2,11 @@ package mock;
 
 import edu.iis.mto.search.SearchResult;
 
-public class MockSearchResult implements SearchResult {
+public class StubSearchResult implements SearchResult {
     private final static int NOT_FOUND=-1;
     private int position;
 
-    public MockSearchResult(int position){
+    public StubSearchResult(int position){
         this.position=position;
     }
 
