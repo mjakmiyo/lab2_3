@@ -42,7 +42,7 @@ public class SimilarityFinderTest {
 	
 	@Test
 	public void calcuateJackardSimilarityShouldReturnZeroWhenSecondSequenceIsEmpty(){
-		boolean [] results= {};
+		boolean [] results= {false,false,false,false};
 		int [] firstSequence= {123,11,0,2};
 		int [] secondSequence= {};
 		
@@ -63,6 +63,41 @@ public class SimilarityFinderTest {
 		double expectedValue=similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
 		
 		assertThat(expectedValue,is(2.0/6.0));
+	}
+	
+	@Test
+	public void calculateJackardSimilarityShouldReturnOneForTheSameSequences() {
+		boolean [] results= {true,true,true,true};
+		int [] firstSequence= {2,4,5,6};
+		int [] secondSequence= {2,4,5,6};
+		SequenceSearcher sequenceSearcherStub= new SequenceSearcherStub(results);
+		similarityFinder= new SimilarityFinder(sequenceSearcherStub);
+		double expectedValue=similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
 		
+		assertThat(expectedValue,is(1.0));
+	}
+	
+	@Test
+	public void calculateJackardSimilarityShouldReturnOneForSequencesWithTheSameValues() {
+		boolean [] results= {true,true,true,true};
+		int [] firstSequence= {5,6,4,2};
+		int [] secondSequence= {2,4,5,6};
+		SequenceSearcher sequenceSearcherStub= new SequenceSearcherStub(results);
+		similarityFinder= new SimilarityFinder(sequenceSearcherStub);
+		double expectedValue=similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
+		
+		assertThat(expectedValue,is(1.0));
+	}
+	
+	@Test
+	public void calculateJackardSimilarityShouldReturnZeroForDiffrentSequences() {
+		boolean [] results= {false,false,false,false};
+		int [] firstSequence= {5,6,4,2};
+		int [] secondSequence= {22,23,54,61};
+		SequenceSearcher sequenceSearcherStub= new SequenceSearcherStub(results);
+		similarityFinder= new SimilarityFinder(sequenceSearcherStub);
+		double expectedValue=similarityFinder.calculateJackardSimilarity(firstSequence, secondSequence);
+		
+		assertThat(expectedValue,is(0.0));
 	}
 }
