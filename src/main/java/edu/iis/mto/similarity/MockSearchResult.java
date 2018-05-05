@@ -4,17 +4,17 @@ import edu.iis.mto.search.SearchResult;
 
 public class MockSearchResult implements SearchResult {
 
-	private boolean found;
+	private boolean isFound;
 	private int position;
 	
-	public MockSearchResult(boolean found, int position) {
+	public MockSearchResult(boolean isFound, int position) {
 		
-		this.found = found;
+		this.isFound = isFound;
 		this.position = position;
 	}
 	
 	public boolean isFound() {
-		return found;
+		return isFound;
 	}
 
 	public int getPosition() {

@@ -5,16 +5,21 @@ import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.MockSearchResult;;
 
 public class MockSequenceSearcher implements SequenceSearcher {
+    private final boolean[] expectedResults;
+    private int invokeCounter;
 
-	public SearchResult search(int key, int[] seq) {
-		
-		for(int i = 0 ; i < seq.length ; i++) {
-			
-			if(seq[i] == key)
-				return new MockSearchResult(true, i);
-		}
-		
-		return new MockSearchResult(false, -1);
-	}
+    public MockSequenceSearcher (boolean[] expectedResults) {
+        this.expectedResults = expectedResults;
+    }
 
+    public SearchResult search(int key, int[] seq) {
+        SearchResult searchResult = new MockSearchResult(expectedResults[invokeCounter], invokeCounter);
+        invokeCounter++;
+        return searchResult;
+    }
+
+    public int getInvokeCounter() {
+        return invokeCounter;
+    }
 }
+
