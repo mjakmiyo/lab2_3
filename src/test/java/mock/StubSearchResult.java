@@ -3,15 +3,24 @@ package mock;
 import edu.iis.mto.search.SearchResult;
 
 public class StubSearchResult implements SearchResult {
-    private final static int NOT_FOUND=-1;
     private int position;
+    private boolean isFound;
+    public StubSearchResult(boolean isFound, int position) {
+        this.isFound = isFound;
+        this.position = position;
+    }
 
-    public StubSearchResult(int position){
-        this.position=position;
+    public StubSearchResult(boolean isFound) {
+        this.isFound = isFound;
+    }
+
+    public StubSearchResult() {
+        this.isFound = false;
+        this.position = -1;
     }
 
     public boolean isFound() {
-        return position != NOT_FOUND;
+        return isFound;
     }
 
     public int getPosition() {
