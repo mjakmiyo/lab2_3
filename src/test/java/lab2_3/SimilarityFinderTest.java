@@ -19,4 +19,12 @@ public class SimilarityFinderTest {
 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is((double)intersect/(double)union));
 	}
 	
+	@Test
+ 	public void CalculateJackardSimilarityForEmptySequencesTest() {
+ 		SimilarityFinder similarityFinder=new SimilarityFinder(searcher);
+ 		int[] seq1= {};
+ 		int[] seq2= {};
+ 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
+ 	}		 	
+	
 }
