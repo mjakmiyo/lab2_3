@@ -67,4 +67,11 @@ public class SimilarityFinderTest {
  		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(0d));
  	}
 	
+	@Test
+ 	public void CalculateJackardSimilarityForCommonElementsInSequencesTest() {
+ 		int[] seq1= {1,2,3,4};
+ 		int[] seq2= {3,4,5,6};
+ 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(2/6d));
+ 	}
+	
 }
