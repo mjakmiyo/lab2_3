@@ -3,28 +3,23 @@ package lab2_3;
 import static org.junit.Assert.*;
 
 import org.hamcrest.Matchers;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import edu.iis.mto.search.SequenceSearcher;
 import edu.iis.mto.similarity.SimilarityFinder;
-
+import org.mockito.Mock;
 public class SimilarityFinderTest {
-	SequenceSearcher searcher;
-	@Test
-	public void CalculateJackardSimilarityTest() {
-		SimilarityFinder similarityFinder=new SimilarityFinder(searcher);
-		int[] seq1= {1,2,3,4,5};
-		int[] seq2= {1,2,3,4,5,6,7,8,9,10};
-		int intersect=5;
-		int union=seq1.length+seq2.length-intersect;
-		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is((double)intersect/(double)union));
+	private static SimilarityFinder similarityFinder;
+	@Mock
+	private static SequenceSearcher searcher;
+	@BeforeClass
+	public static void init() {
+		similarityFinder=new SimilarityFinder(searcher);
 	}
-	
 	@Test
- 	public void CalculateJackardSimilarityForEmptySequencesTest() {
- 		SimilarityFinder similarityFinder=new SimilarityFinder(searcher);
- 		int[] seq1= {};
- 		int[] seq2= {};
- 		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
- 	}		 	
-	
+	public void CalculateJackardSimilarityForEmptySequencesTest() {
+		int[] seq1= {};
+		int[] seq2= {};
+		assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), Matchers.is(1.0d));
+	}
 }
