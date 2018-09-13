@@ -22,7 +22,7 @@ public class SimilarityFinderTest {
 
     @Test
     public void differentSequencesShouldReturnZero() {
-        boolean[] expectedResults = {false, false, false, false, false, false, false};
+        boolean[] expectedResults = {false, false, false, false};
         int[] seq1 = {6, 3, 6, 3};
         int[] seq2 = {1, 2, 4, 5, 7, 8, 9};
         SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults, 0);
@@ -38,5 +38,26 @@ public class SimilarityFinderTest {
         SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults, 0);
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), equalTo(1.0d));
+    }
+
+    @Test
+    public void calculatingSimilarityForTwoSequencesShouldReturnCorrectValue() {
+        boolean[] expectedResults = {true, true, false, true, true, false};
+        int[] seq1 = {1, 2, 4, 5, 7, 9};
+        int[] seq2 = {1, 2, 3, 5, 7};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults, 0);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), equalTo(4.0 / 7.0));
+    }
+
+    @Test
+    public void searchMethodShouldBeCalledCorrectNumberOfTimes() {
+        boolean[] expectedResults = {true, true, false, true, true, false};
+        int[] seq1 = {1, 2, 4, 5, 7, 9};
+        int[] seq2 = {1, 2, 3, 5, 7};
+        SequenceSearcherStub sequenceSearcher = new SequenceSearcherStub(expectedResults, 0);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        similarityFinder.calculateJackardSimilarity(seq1, seq2);
+        assertThat(sequenceSearcher.getPosition(), equalTo(6));
     }
 }

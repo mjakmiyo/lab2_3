@@ -8,6 +8,10 @@ public class SequenceSearcherStub implements SequenceSearcher {
     private boolean[] expectedResults;
     private int position;
 
+    public int getPosition() {
+        return this.position;
+    }
+
     public SequenceSearcherStub(boolean[] expectedResults, int position) {
         this.expectedResults = expectedResults;
         this.position = position;
