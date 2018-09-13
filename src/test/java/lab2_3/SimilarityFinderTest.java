@@ -29,4 +29,14 @@ public class SimilarityFinderTest {
         SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
         assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), equalTo(0.0d));
     }
+
+    @Test
+    public void equalSequencesShouldReturnOne() {
+        boolean[] expectedResults = {true, true, true, true, true, true, true};
+        int[] seq1 = {1, 2, 4, 5, 7, 8, 9};
+        int[] seq2 = {1, 2, 4, 5, 7, 8, 9};
+        SequenceSearcher sequenceSearcher = new SequenceSearcherStub(expectedResults, 0);
+        SimilarityFinder similarityFinder = new SimilarityFinder(sequenceSearcher);
+        assertThat(similarityFinder.calculateJackardSimilarity(seq1, seq2), equalTo(1.0d));
+    }
 }
