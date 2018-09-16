@@ -5,7 +5,17 @@ import javax.naming.directory.SearchResult;
 import edu.iis.mto.search.SequenceSearcher;
 
 public class SequenceSearcherPart implements SequenceSearcher {
-	public SearchResult search(int i, int[] ints) {
-		return null;
+	private int currentElement;
+	private boolean[] resultsArray;
+
+	public SearchResult search(int needle, int[] hay) {
+		final SearchResultPart searchResultPart = new SearchResultPart(resultsArray[currentElement], currentElement);
+		currentElement++;
+		return searchResultPart;
+	}
+
+	public void setResultsArray(boolean[] resultsArray) {
+		this.resultsArray = resultsArray;
+		currentElement = 0;
 	}
 }
